@@ -1,5 +1,5 @@
 # paypal_adaptive
-This gem is a lightweight wrapper for the paypal adaptive payments API.
+This gem is a not-so-lightweight wrapper for the paypal adaptive payments API.
 
 This is very much a work in progress! Use at your own risk or submit bug fixes :)
 
@@ -144,4 +144,6 @@ First release.
 
 ## Copyright
 
-Copyright (c) 2009 Tommy Chheng. See LICENSE for details.
+Copyright (c) 2012 Adam Sunderland
+Copyright (c) 2009 Tommy Chheng. 
+See LICENSE for details.
