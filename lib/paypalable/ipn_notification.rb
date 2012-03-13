@@ -4,8 +4,12 @@ require 'json'
 
 module Paypalable
   class IpnNotification
-    def send_back(data)
-      data = "cmd=_notify-validate&#{data}"
+    def initialize(data)
+      @data = data
+    end
+    
+    def send_back
+      data = "cmd=_notify-validate&#{@data}"
       url = URI.parse Paypalable::Config.paypal_base_url
       http = Net::HTTP.new(url.host, 443)
       http.use_ssl = true
