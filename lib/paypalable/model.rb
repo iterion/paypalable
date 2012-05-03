@@ -14,7 +14,7 @@ module ActiveRecord
 
     module InstanceMethods
       def pay(host)
-        Request.pay paypal_payment_data host
+        ::Paypalable::Request.pay paypal_payment_data host
       end
       
       def paypal_payment_data(host)

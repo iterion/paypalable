@@ -55,7 +55,7 @@ module Paypalable
       def wrap_post(data, path)
         raise NoDataError unless data
 
-        Response.new(post(data, path))
+        Paypalable::Response.new(post(data, path))
       end
 
       def rescue_error_message(e, message = nil)
@@ -64,20 +64,20 @@ module Paypalable
     
       def post(data, path)
         api_request_data = data.to_json
-        url = URI.parse Config.api_base_url
+        url = URI.parse Paypalable::Config.api_base_url
         http = Net::HTTP.new(url.host, 443)
         http.use_ssl = true
         http.verify_mode = ::OpenSSL::SSL::VERIFY_PEER
 
-        if Config.ssl_cert_file
+        if Paypalable::Config.ssl_cert_file
           cert = File.read(::Paypalable::Config.ssl_cert_file)
           http.cert = OpenSSL::X509::Certificate.new(cert)
           http.key = OpenSSL::PKey::RSA.new(cert)
         end
-        http.ca_path = Config.ssl_cert_path unless Config.ssl_cert_path.nil?
+        http.ca_path = Paypalable::Config.ssl_cert_path unless Paypalable::Config.ssl_cert_path.nil?
 
         begin
-          response_data = http.post(path, api_request_data, Config.headers)
+          response_data = http.post(path, api_request_data, Paypalable::Config.headers)
           return JSON.parse(response_data.body)
         rescue Net::HTTPBadGateway => e
           rescue_error_message(e, "Error reading from remote server.")
