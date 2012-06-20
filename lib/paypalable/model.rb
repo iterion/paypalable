@@ -13,8 +13,12 @@ module ActiveRecord
     end
 
     module InstanceMethods
+      def payment_response
+        @payment_response
+      end
+
       def pay(host)
-        ::Paypalable::Request.pay paypal_payment_data host
+        @payment_response = ::Paypalable::Request.pay paypal_payment_data host
       end
       
       def paypal_payment_data(host)
