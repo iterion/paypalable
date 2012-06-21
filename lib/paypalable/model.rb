@@ -7,9 +7,9 @@ module ActiveRecord
 
     module ClassMethods
       def paypalable(options = {})
-        @paypalable_options = options.reverse_merge! {
+        @paypalable_options = options.reverse_merge!({
           payment_method: :payment_data
-        }
+        })
         @payment_method = payment_method.to_sym
         include ActiveRecord::Paypalable::InstanceMethods
       end
