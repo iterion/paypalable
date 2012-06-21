@@ -21,13 +21,13 @@ module ActiveRecord
       end
 
       def pay(host)
-        @payment_response = ::Paypalable::Request.pay paypal_payment_data host
+        payment_response = ::Paypalable::Request.pay paypal_payment_data host
 
-        unless @payment_response.success?
-          self.errors = self.errors + @payment_response.errors
+        unless payment_response.success?
+          self.errors.add(:base, @payment_response.errors.first['message'])
         end
-
-        @payment_response
+        puts payment_response
+        payment_response.success?
       end
       
       def paypal_payment_data(host)
