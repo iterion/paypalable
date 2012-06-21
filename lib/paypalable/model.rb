@@ -7,6 +7,7 @@ module ActiveRecord
 
     module ClassMethods
       def paypalable(options = {})
+        attr_accessor :paypalable_options, :payment_response
         @paypalable_options = options.reverse_merge!({
           payment_method: :payment_data
         })
@@ -17,10 +18,6 @@ module ActiveRecord
     module InstanceMethods
       def payment_method
         @paypalable_options[:payment_method]
-      end
-
-      def payment_response
-        @payment_response
       end
 
       def pay(host)

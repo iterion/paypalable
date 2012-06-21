@@ -25,6 +25,10 @@ module Paypalable
       message = errors.first['message'] rescue nil
     end
 
+    def pay_key
+      self['payKey']
+    end
+
     def approve_paypal_payment_url(type=nil)
       if self['payKey'].nil?
         return nil
