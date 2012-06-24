@@ -7,51 +7,6 @@ module Paypalable
 
   class Request
     class << self
-
-      def pay(data)
-        wrap_post(data, "/AdaptivePayments/Pay")
-      end
-
-      def payment_details(data)
-        wrap_post(data, "/AdaptivePayments/PaymentDetails")
-      end
-
-      def set_payment_options(data)
-        wrap_post(data, "/AdaptivePayments/SetPaymentOptions")
-      end
-
-      def get_payment_options(data)
-        wrap_post(data, "/AdaptivePayments/GetPaymentOptions")
-      end
-
-      def get_shipping_addresses(data)
-        wrap_post(data, "/AdaptivePayments/GetShippingAddresses")
-      end
-
-      def preapproval(data)
-        wrap_post(data, "/AdaptivePayments/Preapproval")
-      end
-
-      def preapproval_details(data)
-        wrap_post(data, "/AdaptivePayments/PreapprovalDetails")
-      end
-
-      def cancel_preapproval(data)
-        wrap_post(data, "/AdaptivePayments/CancelPreapproval")
-      end
-
-      def convert_currency(data)
-        wrap_post(data, "/AdaptivePayments/ConvertCurrency")
-      end
-
-      def refund(data)
-        wrap_post(data, "/AdaptivePayments/Refund")
-      end
-
-      def execute_payment(data)
-        wrap_post(data, "/AdaptivePayments/ExecutePayment")
-      end
-
       def wrap_post(data, path)
         raise NoDataError unless data
 
@@ -69,6 +24,7 @@ module Paypalable
         http.use_ssl = true
         http.verify_mode = ::OpenSSL::SSL::VERIFY_PEER
 
+        #set up connecting with a cert file if we have one
         if Paypalable::Config.ssl_cert_file
           cert = File.read(::Paypalable::Config.ssl_cert_file)
           http.cert = OpenSSL::X509::Certificate.new(cert)

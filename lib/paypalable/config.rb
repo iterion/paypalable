@@ -13,7 +13,7 @@ module Paypalable
     } unless defined? API_BASE_URL_MAPPING
     
     class << self
-      attr_accessor :paypal_base_url, :api_base_url, :ssl_cert_path, :ssl_cert_file, :username, :password, :application_id, :signature
+      attr_accessor :paypal_base_url, :api_base_url, :ssl_cert_path, :ssl_cert_file, :username, :password, :application_id, :signature, :headers
       
       def paypal_environment=(env)
         @paypal_base_url = PAYPAL_BASE_URL_MAPPING[env]
@@ -27,7 +27,7 @@ module Paypalable
       end
       
       def headers
-        @headers = {
+        @headers ||= {
           "X-PAYPAL-SECURITY-USERID" => @username,
           "X-PAYPAL-SECURITY-PASSWORD" => @password,
           "X-PAYPAL-APPLICATION-ID" => @application_id,

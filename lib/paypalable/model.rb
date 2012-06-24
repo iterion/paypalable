@@ -22,7 +22,7 @@ module ActiveRecord
       end
 
       def pay(host)
-        @payment_response = ::Paypalable::Request.pay paypal_payment_data host
+        @payment_response = ::Paypalable::AdaptivePaymentsRequest.pay paypal_payment_data host
 
 
         unless @payment_response.success?
@@ -35,8 +35,6 @@ module ActiveRecord
       def paypal_payment_data(host)
         data = {
           "requestEnvelope" => {"errorLanguage" => "en_US"},
-          "currencyCode"=>"USD",
-          "actionType"=>"PAY"
         }
         self.send(payment_method, data, host)
       end
