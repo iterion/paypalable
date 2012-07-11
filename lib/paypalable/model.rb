@@ -26,7 +26,8 @@ module ActiveRecord
 
 
         unless @payment_response.success?
-          self.errors.add(:base, @payment_response.errors.first['message'])
+          error_message = @payment_response.errors.first['message'].gsub(/#{self.student.email}/, "").squeeze
+          self.errors.add(:base, error_message)
         end
         
         @payment_response.success?
